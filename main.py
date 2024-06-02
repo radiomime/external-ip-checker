@@ -13,6 +13,7 @@ def get_external_ip():
 
 
 if __name__ == "__main__":
+    print("Starting External IP Address checker...")
     while True:
         external_ip = get_external_ip()
         print(f"External IP Address: {external_ip}")
