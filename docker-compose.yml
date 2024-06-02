@@ -1,6 +1,7 @@
 services:
   external-ip-checker:
     build: .
+    image: matthewwright/external-ip-checker:latest
     container_name: external-ip-checker
     environment:
       - PYTHONUNBUFFERED=1
