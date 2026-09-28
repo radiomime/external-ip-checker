@@ -6,7 +6,7 @@ def get_external_ip():
     try:
         start_time = time.time()
 
-        response = requests.get("https://api.ipify.org?format=json")
+        response = requests.get("https://api.ipify.org?format=json", timeout=10)
         response.raise_for_status()
         ip_info = response.json()
 
@@ -15,12 +15,15 @@ def get_external_ip():
 
         return ip_info["ip"], duration
     except requests.exceptions.RequestException as e:
-        return f"Error: {e}"
+        return f"Error: {e}", None
 
 
 if __name__ == "__main__":
     print("Starting External IP Address checker...")
     while True:
         external_ip, duration = get_external_ip()
-        print(f"External IP Address: {external_ip} (Latency: {duration:.2f} seconds)")
+        if duration is None:
+            print(external_ip)
+        else:
+            print(f"External IP Address: {external_ip} (Latency: {duration:.2f} seconds)")
         time.sleep(5)
